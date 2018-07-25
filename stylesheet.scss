@@ -132,15 +132,15 @@ a {
   }
 
   &._0 {
-    background-image: url(./img/1/visualgo.png);
+    background-image: url(img/1/visualgo.png);
   }
 
   &._1 {
-    background-image: url(./img/1/usfca.png);
+    background-image: url(img/1/usfca.png);
   }
 
   &._2 {
-    background-image: url(./img/1/khan.png);
+    background-image: url(img/1/khan.png);
   }
 }
 
@@ -188,11 +188,14 @@ a {
 }
 
 .slide-3 {
-  background: url(./img/2/logo.png) no-repeat center;
+  background: url(img/3/logo.png) no-repeat center;
 }
 
 .slide-4 {
-  background: url(./img/3/screenshot.png) no-repeat center;
+  background: url(img/4/screenshot.png) no-repeat center;
+  background-size: contain;
+
+  $height-header: 84px;
 
   .highlight {
     position: absolute;
@@ -216,13 +219,13 @@ a {
   &._3,
   &._4 {
     .highlight {
-      bottom: 1080-84px;
+      bottom: 1080-$height-header;
     }
   }
 
   &._5 {
     .highlight {
-      top: 84px;
+      top: $height-header;
       right: 1920 * .8px;
     }
   }
@@ -230,7 +233,7 @@ a {
   &._6,
   &._7 {
     .highlight {
-      top: 84px;
+      top: $height-header;
       left: 1920 * .2px;
       right: 1920 * .4px;
     }
@@ -238,7 +241,7 @@ a {
 
   &._8 {
     .highlight {
-      top: 84px;
+      top: $height-header;
       left: 1920 * .6px;
       right: 0;
     }
@@ -455,12 +458,10 @@ a {
     content: 'When the back-end compiles and runs code, the visualization library emits a change log.';
   }
   &._9:after {
-    content: 'The back-end then passes the change log on to the front-end, and the front-end interprets and renders it step by step';
+    content: 'The back-end then passes the change log on to the front-end, and the front-end interprets and renders it step by step.';
   }
 }
 
-.slide-6 {
-  &._0:after {
-    content: 'Visit algorithm-visualizer.org and be a part of our community.';
-  }
+.slide-6:after {
+  content: 'Visit algorithm-visualizer.org.';
 }
