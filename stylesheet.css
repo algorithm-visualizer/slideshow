@@ -1,17 +1,25 @@
 html,
 body {
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
   overflow: hidden;
 }
 
 body {
-  background-color: #393939;
+  background-color: #242424;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 * {
@@ -19,21 +27,68 @@ body {
   transition: all 1s ease;
 }
 
+.screen {
+  position: relative;
+  min-width: 1920px;
+  min-height: 1080px;
+  background-color: #393939;
+  box-shadow: 0 0 32px rgba(0, 0, 0, 0.2);
+}
+
 .slide {
   position: absolute;
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
+  z-index: 0;
+}
+.slide.initial * {
+  transition: none;
 }
 .slide.active {
+  z-index: 1;
   opacity: 1;
+}
+.slide:after {
+  position: absolute;
+  bottom: 16px;
+  max-width: 1280px;
+  padding: 16px 32px;
+  text-align: center;
+  color: #bbbbbb;
+  font-size: 48px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 1s ease;
+}
+
+.slide-0 .material {
+  color: #505050;
+  font-size: 192px;
+}
+.slide-0 .learner {
+  margin: 0 128px;
+  color: #bbbbbb;
+  font-size: 256px;
+  display: none;
+}
+.slide-0._0 .learner-first, .slide-0._1 .learner-first, .slide-0._2 .learner-first {
+  display: block;
+}
+.slide-0._1 .material:first-child {
+  color: #bbbbbb;
+}
+.slide-0._2 .material, .slide-0._3 .material {
+  color: #bbbbbb;
+}
+.slide-0._3 .learner-second {
+  display: block;
 }
 
 .slide-1 {
-  background: url(./img/visualgo.png) no-repeat center;
+  background: no-repeat center;
   background-size: 520px;
   background-position-y: calc(50% - 46px);
 }
@@ -41,46 +96,89 @@ body {
   font-size: 512px;
   color: #bbbbbb;
 }
+.slide-1._0 {
+  background-image: url(./img/1/visualgo.png);
+}
+.slide-1._1 {
+  background-image: url(./img/1/usfca.png);
+}
+.slide-1._2 {
+  background-image: url(./img/1/khan.png);
+}
 
-.slide-2 {
-  background: url(./img/logo.png) no-repeat center;
+.slide-2 .src,
+.slide-2 .dest {
+  position: absolute;
+  color: #bbbbbb;
+  font-size: 192px;
+  opacity: 0;
+}
+.slide-2 .arrow {
+  position: absolute;
+  color: #505050;
+  font-size: 128px;
+  opacity: 0;
+}
+.slide-2 .src {
+  opacity: 1;
+  left: calc(50% - 120px);
+}
+.slide-2 .dest {
+  right: 512px;
+}
+.slide-2._1 .src, .slide-2._2 .src {
+  left: 512px;
+}
+.slide-2._1 .arrow, .slide-2._2 .arrow {
+  opacity: 1;
+}
+.slide-2._2 .dest {
+  opacity: 1;
 }
 
 .slide-3 {
-  background: url(./img/screenshot.png) no-repeat center;
+  background: url(./img/2/logo.png) no-repeat center;
 }
-.slide-3 .highlight {
+
+.slide-4 {
+  background: url(./img/3/screenshot.png) no-repeat center;
+}
+.slide-4 .highlight {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(34, 153, 221, 0.2);
-  border: 2px solid rgba(34, 153, 221, 0.8);
+  background-color: rgba(34, 153, 221, 0.1);
+  border: 2px solid #29d;
 }
-.slide-3._0 .highlight {
+.slide-4._0 .highlight, .slide-4._1 .highlight, .slide-4._2 .highlight {
+  opacity: 0;
+  bottom: 100%;
+}
+.slide-4._3 .highlight, .slide-4._4 .highlight {
   bottom: 996px;
 }
-.slide-3._1 .highlight {
+.slide-4._5 .highlight {
   top: 84px;
   right: 1536px;
 }
-.slide-3._2 .highlight {
+.slide-4._6 .highlight, .slide-4._7 .highlight {
   top: 84px;
   left: 384px;
   right: 768px;
 }
-.slide-3._3 .highlight {
+.slide-4._8 .highlight {
   top: 84px;
   left: 1152px;
   right: 0;
 }
 
-.slide-4 {
+.slide-5 {
   perspective: 2048px;
   perspective-origin: center;
 }
-.slide-4 .container {
+.slide-5 .container {
   flex: 1;
   background-color: #242424;
   display: flex;
@@ -88,83 +186,176 @@ body {
   align-items: stretch;
   border: 2px solid #505050;
 }
-.slide-4 .container:not(:first-child) {
+.slide-5 .container:not(:first-child) {
   margin-left: 24px;
 }
-.slide-4 .container .title {
+.slide-5 .container .title {
   display: flex;
   align-items: center;
   padding: 8px 12px;
   background: #505050;
   white-space: nowrap;
 }
-.slide-4 .container .title.center {
+.slide-5 .container .title.center {
   justify-content: center;
 }
-.slide-4 .container .title i {
+.slide-5 .container .title i {
   color: white;
   font-size: 20px;
 }
-.slide-4 .container .title i:not(:last-child) {
+.slide-5 .container .title i:not(:last-child) {
   margin-right: 6px;
 }
-.slide-4 .container .title .org {
+.slide-5 .container .title .org {
   color: #bbbbbb;
 }
-.slide-4 .container .title .slash {
+.slide-5 .container .title .slash {
   color: #bbbbbb;
   font-size: 20px;
   margin: 0 4px;
 }
-.slide-4 .container .title .repo {
+.slide-5 .container .title .repo {
   color: white;
   font-weight: bold;
   font-size: 20px;
 }
-.slide-4 .container .content {
+.slide-5 .container .content {
   flex: 1;
   padding: 24px;
   display: flex;
   align-items: stretch;
 }
-.slide-4 .container .content.vertical {
+.slide-5 .container .content.vertical {
   flex-direction: column;
   justify-content: center;
 }
-.slide-4 .container .content.vertical > .container {
+.slide-5 .container .content.vertical > .container {
   flex: none;
 }
-.slide-4 .container .content.vertical > .container:not(:first-child) {
+.slide-5 .container .content.vertical > .container:not(:first-child) {
   margin-left: 0;
   margin-top: 16px;
 }
-.slide-4 .algorithms {
+.slide-5 .algorithms {
   top: 192px;
 }
-.slide-4 .tracers {
+.slide-5 .tracers {
   top: 384px;
 }
-.slide-4 .app {
+.slide-5 .app {
   top: 576px;
 }
-.slide-4 .algorithms,
-.slide-4 .tracers,
-.slide-4 .app {
+.slide-5 .algorithms,
+.slide-5 .tracers,
+.slide-5 .app {
   position: absolute;
   transform: rotateX(50deg);
   box-shadow: 0 16px 16px rgba(0, 0, 0, 0.2);
-  opacity: 0.8;
+  opacity: 0.6;
   margin-left: 0 !important;
 }
-.slide-4._1 .algorithms, .slide-4._2 .tracers, .slide-4._3 .app {
+.slide-5 .algorithms:after,
+.slide-5 .tracers:after,
+.slide-5 .app:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(34, 153, 221, 0.1);
+  border: 2px solid #29d;
+  opacity: 0;
+  transition: all 1s ease;
+}
+.slide-5._2 .algorithms:after, .slide-5._3 .tracers:after, .slide-5._4 .app:after {
+  opacity: 1;
+}
+.slide-5._5 .algorithms, .slide-5._6 .tracers, .slide-5._7 .app {
   transform: rotateX(0deg);
   opacity: 1;
 }
-.slide-4._2 .algorithms, .slide-4._3 .algorithms {
+.slide-5._6 .algorithms, .slide-5._7 .algorithms {
   top: 0;
 }
-.slide-4._3 .tracers {
+.slide-5._7 .tracers {
   top: 192px;
+}
+
+.slide-6 {
+  background-color: #242424;
+  color: #bbbbbb;
+  font-size: 96px;
+}
+
+.slide-0:after {
+  content: "Learning algorithms from text and static images is quite boring.";
+}
+
+.slide-1:after {
+  content: "For that, there have been many great websites that view animations of various algorithms.";
+}
+
+.slide-2:after {
+  content: "However, for us being coders, nothing can be more comprehensible than visualizing the actual working code.";
+}
+
+.slide-3:after {
+  content: "So here we introduce Algorithm Visualizer.";
+}
+
+.slide-4._0:after {
+  content: "Algorithm Visualizer is an interactive online platform that visualizes algorithms from code.";
+}
+.slide-4._1:after {
+  content: "It offers visualization tools in various languages including JavaScript, Java, and C++.";
+}
+.slide-4._2:after {
+  content: "The UI of Algorithm Visualizer consists of 4 sections: toolbar, sidebar, viewer, and editor.";
+}
+.slide-4._3:after {
+  content: "The toolbar contains a user's profile and buttons for controlling visualization.";
+}
+.slide-4._4:after {
+  content: "A user can also save algorithms to GitHub Gist or share them on Facebook here.";
+}
+.slide-4._5:after {
+  content: "The sidebar shows a set of public algorithms, which others have contributed, in addition to a user's scratch papers.";
+}
+.slide-4._6:after {
+  content: "The viewer is where the actual visualization happens.";
+}
+.slide-4._7:after {
+  content: "It also views descriptions of algorithms.";
+}
+.slide-4._8:after {
+  content: "Lastly, the editor lets a user write down their own algorithms to be visualized.";
+}
+
+.slide-5._0:after {
+  content: "Algorithm Visualizer is an open source project on GitHub.";
+}
+.slide-5._1:after, .slide-5._2:after, .slide-5._3:after, .slide-5._4:after {
+  content: "The project is composed of 3 repositories named algorithms, tracers, and algorithm-visualizer.";
+}
+.slide-5._5:after {
+  content: '"algorithms" repository contains public algorithms shown on the sidebar.';
+}
+.slide-5._6:after {
+  content: '"tracers" repository contains visualization libraries written in each supported language.';
+}
+.slide-5._7:after {
+  content: '"algorithm-visualizer" repository contains the front-end written in React.js and the back-end written in Node.js.';
+}
+.slide-5._8:after {
+  content: "When the back-end compiles and runs code, the visualization library emits a change log.";
+}
+.slide-5._9:after {
+  content: "The back-end then passes the change log on to the front-end, and the front-end interprets and renders it step by step";
+}
+
+.slide-6._0:after {
+  content: "Visit algorithm-visualizer.org and be a part of our community.";
 }
 
 /*# sourceMappingURL=stylesheet.css.map */

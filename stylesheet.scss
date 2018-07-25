@@ -11,18 +11,26 @@ $color-highlight: #29d;
 
 html,
 body {
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
   overflow: hidden;
 }
 
 body {
-  background-color: $theme-normal;
+  background-color: $theme-dark;
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 * {
@@ -30,22 +38,91 @@ body {
   transition: all 1s ease;
 }
 
+.screen {
+  position: relative;
+  min-width: 1920px;
+  min-height: 1080px;
+  background-color: $theme-normal;
+  box-shadow: 0 0 32px $color-shadow;
+}
+
 .slide {
   position: absolute;
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
+  z-index: 0;
+
+  &.initial {
+    * {
+      transition: none;
+    }
+  }
 
   &.active {
+    z-index: 1;
     opacity: 1;
+  }
+
+  &:after {
+    position: absolute;
+    bottom: 16px;
+    max-width: 1280px;
+    padding: 16px 32px;
+    text-align: center;
+    color: $color-font;
+    font-size: 48px;
+    background-color: $color-shadow;
+    transition: all 1s ease;
+  }
+}
+
+.slide-0 {
+  .material {
+    color: $theme-light;
+    font-size: 192px;
+  }
+
+  .learner {
+    margin: 0 128px;
+    color: $color-font;
+    font-size: 256px;
+    display: none;
+  }
+
+  &._0,
+  &._1,
+  &._2 {
+    .learner-first {
+      display: block;
+    }
+  }
+
+  &._1 {
+    .material:first-child {
+      color: $color-font;
+    }
+  }
+
+  &._2,
+  &._3 {
+    .material {
+      color: $color-font;
+    }
+  }
+
+  &._3 {
+    .learner-second {
+      display: block;
+    }
   }
 }
 
 .slide-1 {
-  background: url(./img/visualgo.png) no-repeat center;
+  background: no-repeat center;
   background-size: 520px;
   background-position-y: calc(50% - 46px);
 
@@ -53,14 +130,69 @@ body {
     font-size: 512px;
     color: $color-font;
   }
+
+  &._0 {
+    background-image: url(./img/1/visualgo.png);
+  }
+
+  &._1 {
+    background-image: url(./img/1/usfca.png);
+  }
+
+  &._2 {
+    background-image: url(./img/1/khan.png);
+  }
 }
 
 .slide-2 {
-  background: url(./img/logo.png) no-repeat center;
+  .src,
+  .dest {
+    position: absolute;
+    color: $color-font;
+    font-size: 192px;
+    opacity: 0;
+  }
+
+  .arrow {
+    position: absolute;
+    color: $theme-light;
+    font-size: 128px;
+    opacity: 0;
+  }
+
+  .src {
+    opacity: 1;
+    left: calc(50% - 120px);
+  }
+
+  .dest {
+    right: 512px;
+  }
+
+  &._1,
+  &._2 {
+    .src {
+      left: 512px;
+    }
+
+    .arrow {
+      opacity: 1;
+    }
+  }
+
+  &._2 {
+    .dest {
+      opacity: 1;
+    }
+  }
 }
 
 .slide-3 {
-  background: url(./img/screenshot.png) no-repeat center;
+  background: url(./img/2/logo.png) no-repeat center;
+}
+
+.slide-4 {
+  background: url(./img/3/screenshot.png) no-repeat center;
 
   .highlight {
     position: absolute;
@@ -68,33 +200,52 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba($color-highlight, .2);
-    border: 2px solid rgba($color-highlight, .8);
+    background-color: rgba($color-highlight, .1);
+    border: 2px solid $color-highlight;
   }
 
-  &._0 .highlight {
-    bottom: 1080-84px;
+  &._0,
+  &._1,
+  &._2 {
+    .highlight {
+      opacity: 0;
+      bottom: 100%;
+    }
   }
 
-  &._1 .highlight {
-    top: 84px;
-    right: 1920 * .8px;
+  &._3,
+  &._4 {
+    .highlight {
+      bottom: 1080-84px;
+    }
   }
 
-  &._2 .highlight {
-    top: 84px;
-    left: 1920 * .2px;
-    right: 1920 * .4px;
+  &._5 {
+    .highlight {
+      top: 84px;
+      right: 1920 * .8px;
+    }
   }
 
-  &._3 .highlight {
-    top: 84px;
-    left: 1920 * .6px;
-    right: 0;
+  &._6,
+  &._7 {
+    .highlight {
+      top: 84px;
+      left: 1920 * .2px;
+      right: 1920 * .4px;
+    }
+  }
+
+  &._8 {
+    .highlight {
+      top: 84px;
+      left: 1920 * .6px;
+      right: 0;
+    }
   }
 }
 
-.slide-4 {
+.slide-5 {
   perspective: 2048px;
   perspective-origin: center;
 
@@ -188,23 +339,128 @@ body {
     position: absolute;
     transform: rotateX(50deg);
     box-shadow: 0 16px 16px $color-shadow;
-    opacity: .8;
+    opacity: .6;
     margin-left: 0 !important;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba($color-highlight, .1);
+      border: 2px solid $color-highlight;
+      opacity: 0;
+      transition: all 1s ease;
+    }
   }
 
-  &._1 .algorithms,
-  &._2 .tracers,
-  &._3 .app {
+  &._2 .algorithms,
+  &._3 .tracers,
+  &._4 .app {
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  &._5 .algorithms,
+  &._6 .tracers,
+  &._7 .app {
     transform: rotateX(0deg);
     opacity: 1;
   }
 
-  &._2 .algorithms,
-  &._3 .algorithms {
+  &._6 .algorithms,
+  &._7 .algorithms {
     top: 0;
   }
 
-  &._3 .tracers {
+  &._7 .tracers {
     top: 192px;
+  }
+}
+
+.slide-6 {
+  background-color: $theme-dark;
+  color: $color-font;
+  font-size: 96px;
+}
+
+.slide-0:after {
+  content: 'Learning algorithms from text and static images is quite boring.';
+}
+
+.slide-1:after {
+  content: 'For that, there have been many great websites that view animations of various algorithms.';
+}
+
+.slide-2:after {
+  content: 'However, for us being coders, nothing can be more comprehensible than visualizing the actual working code.';
+}
+
+.slide-3:after {
+  content: 'So here we introduce Algorithm Visualizer.';
+}
+
+.slide-4 {
+  &._0:after {
+    content: 'Algorithm Visualizer is an interactive online platform that visualizes algorithms from code.';
+  }
+  &._1:after {
+    content: 'It offers visualization tools in various languages including JavaScript, Java, and C++.';
+  }
+  &._2:after {
+    content: 'The UI of Algorithm Visualizer consists of 4 sections: toolbar, sidebar, viewer, and editor.';
+  }
+  &._3:after {
+    content: 'The toolbar contains a user\'s profile and buttons for controlling visualization.';
+  }
+  &._4:after {
+    content: 'A user can also save algorithms to GitHub Gist or share them on Facebook here.';
+  }
+  &._5:after {
+    content: 'The sidebar shows a set of public algorithms, which others have contributed, in addition to a user\'s scratch papers.';
+  }
+  &._6:after {
+    content: 'The viewer is where the actual visualization happens.';
+  }
+  &._7:after {
+    content: 'It also views descriptions of algorithms.';
+  }
+  &._8:after {
+    content: 'Lastly, the editor lets a user write down their own algorithms to be visualized.';
+  }
+}
+
+.slide-5 {
+  &._0:after {
+    content: 'Algorithm Visualizer is an open source project on GitHub.';
+  }
+  &._1:after,
+  &._2:after,
+  &._3:after,
+  &._4:after {
+    content: 'The project is composed of 3 repositories named algorithms, tracers, and algorithm-visualizer.';
+  }
+  &._5:after {
+    content: '"algorithms" repository contains public algorithms shown on the sidebar.';
+  }
+  &._6:after {
+    content: '"tracers" repository contains visualization libraries written in each supported language.';
+  }
+  &._7:after {
+    content: '"algorithm-visualizer" repository contains the front-end written in React.js and the back-end written in Node.js.';
+  }
+  &._8:after {
+    content: 'When the back-end compiles and runs code, the visualization library emits a change log.';
+  }
+  &._9:after {
+    content: 'The back-end then passes the change log on to the front-end, and the front-end interprets and renders it step by step';
+  }
+}
+
+.slide-6 {
+  &._0:after {
+    content: 'Visit algorithm-visualizer.org and be a part of our community.';
   }
 }
